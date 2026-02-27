@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Hybrid Belief-Reinforcement Learning for Sample Efficient Coordinated Spatial Exploration Under Uncertainty">
+  <meta name="keywords" content="HBRL, LGCP, SAC, reinforcement learning, spatial exploration, multi-UAV, informative path planning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HBRL: Hybrid Belief-Reinforcement Learning</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="#">
+        <span class="icon">
+          <i class="fas fa-home"></i>
+        </span>
+      </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="column has-text-centered">
+        <h1 class="title is-2 publication-title">Hybrid Belief&ndash;Reinforcement Learning for Sample Efficient Coordinated Spatial Exploration Under Uncertainty</h1>
+        <div class="column is-full_width">
+          <h2 class="title is-5" style="color: #555;">Under review at Transactions on Machine Learning Research (TMLR)</h2>
+        </div>
+
+        <div class="is-size-5 publication-authors">
+          <span class="author-block">
+            <a href="https://profiles.imperial.ac.uk/d.rizvi21">Danish Rizvi</a>&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
+          <span class="author-block">
+            <a href="https://profiles.imperial.ac.uk/david.boyle">David Boyle</a>
+          </span>
+        </div>
+        <div class="column is-full_width">
+          <h2 class="is-size-6">Systems and Algorithms Lab, Imperial College London</h2>
+        </div>
+
+        <div class="column has-text-centered">
+          <div class="publication-links">
+            <span class="link-block">
+              <a href="#" target="_blank"
+                 class="button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fas fa-file-pdf"></i>
+                </span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#" target="_blank"
+                 class="button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="ai ai-arxiv"></i>
+                </span>
+                <span>arXiv</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#" target="_blank"
+                 class="button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Code (coming soon)</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="has-text-centered">
+        <img src="images/system_overview.png" alt="System Model" class="method-diagram"
+             style="max-width: 90%;">
+      </div>
+      <p class="figure-caption">
+        <strong>Figure 1:</strong> Multiple mobile agents spatial exploration over a discretized operational area with unknown demand, modeled via a spatial belief process. The illustrated scenario depicts UAVs as the instantiated agents, with further details provided in Section 4.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Coordinating multiple autonomous agents to explore and serve spatially heterogeneous
+            demand requires jointly learning unknown spatial patterns and planning trajectories that
+            maximize task performance. Pure model-based approaches provide structured uncertainty
+            estimates but lack adaptive policy learning, while deep reinforcement learning often
+            suffers from poor sample efficiency when spatial priors are absent. This paper presents a
+            hybrid belief&ndash;reinforcement learning (HBRL) framework to address this gap. In the
+            first phase, agents construct spatial beliefs using a Log-Gaussian Cox Process (LGCP) and
+            execute information-driven trajectories guided by a Pathwise Mutual Information (PathMI)
+            planner with multi-step lookahead. In the second phase, trajectory control is transferred
+            to a Soft Actor-Critic (SAC) agent, warm-started through dual-channel knowledge transfer:
+            belief state initialization supplies spatial uncertainty, and replay buffer seeding
+            provides demonstration trajectories generated during LGCP exploration. A
+            variance-normalized overlap penalty enables coordinated coverage through shared belief
+            state, permitting cooperative sensing in high-uncertainty regions while discouraging
+            redundant coverage in well-explored areas. The framework is evaluated on a multi-UAV
+            wireless service provisioning task. Results show 10.8% higher cumulative reward and 38%
+            faster convergence over baselines, with ablation studies confirming that dual-channel
+            transfer outperforms either channel alone.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <hr class="section-divider">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Contributions</h2>
+        <div class="content">
+          <ul class="contribution-list">
+            <li>A hybrid framework combining Log-Gaussian Cox Process (LGCP) spatial modeling with Soft Actor-Critic (SAC) reinforcement learning for coordinated spatial exploration under unknown demand.</li>
+            <li>A dual-channel warm-start mechanism for sample-efficient learning: (i) <em>belief initialization</em>, which provides the RL agent with an informed prior for early policy updates, and (ii) <em>behavioral transfer</em>, which seeds the replay buffer with LGCP-generated exploration trajectories.</li>
+            <li>Uncertainty-driven Pathwise Mutual Information (PathMI) planning for non-myopic trajectory optimization during the exploration phase, extending standard informative path planning (IPP) with staleness-weighted revisitation incentives.</li>
+            <li>A variance-normalized overlap penalty that adapts coordination strength to local belief uncertainty, permitting cooperative sensing in high-uncertainty regions while penalizing redundant coverage.</li>
+            <li>Experimental evaluation shows up to 10.8% higher reward and 38% faster convergence versus baselines.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <hr class="section-divider">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full_width">
+        <h2 class="title is-3">Method</h2>
+      </div>
+    </div>
+
+    <div class="has-text-centered">
+      <img src="images/framework_overview.png" alt="HBRL Framework" class="method-diagram"
+           style="max-width: 95%;">
+    </div>
+    <p class="figure-caption">
+      <strong>Figure 2:</strong> Overview of the proposed HBRL framework. Phase 1 employs LGCP-based belief inference and PathMI planning to guide information-driven exploration. Phase 2 performs policy optimization using Soft Actor-Critic (SAC), warm-started via dual-channel knowledge transfer: (i) belief state initialization and (ii) replay buffer seeding with LGCP-generated trajectories.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+    <hr class="section-divider">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full_width">
+        <h2 class="title is-3">Exploration Behavior</h2>
+      </div>
+    </div>
+
+    <h3 class="title is-4 has-text-centered" style="margin-bottom: 1rem;">Converged Policy (Episode 200)</h3>
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="video-card">
+          <div class="video-label video-label-hbrl">HBRL (Ours)</div>
+          <video autoplay loop muted playsinline>
+            <source src="videos/HBRL_200.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-half">
+        <div class="video-card">
+          <div class="video-label video-label-baseline">Pure RL</div>
+          <video autoplay loop muted playsinline>
+            <source src="videos/Pure_rl_200.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="title is-4 has-text-centered" style="margin-top: 2.5rem; margin-bottom: 1rem;">Mid-Training (Episode 100)</h3>
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="video-card">
+          <div class="video-label video-label-hbrl">HBRL (Ours)</div>
+          <video autoplay loop muted playsinline>
+            <source src="videos/HBRL_100.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-half">
+        <div class="video-card">
+          <div class="video-label video-label-baseline">Pure RL</div>
+          <video autoplay loop muted playsinline>
+            <source src="videos/Pure_rl_100.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <hr class="section-divider">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full_width">
+        <h2 class="title is-3">Experimental Results</h2>
+      </div>
+    </div>
+
+    <h3 class="title is-4">Learning Performance</h3>
+    <div class="results-grid">
+      <div class="result-card">
+        <img src="images/reward_comparison.png" alt="Reward Comparison">
+        <p class="figure-caption"><strong>Figure 4:</strong> Reward comparison between Pure LGCP, Pure RL, Behavior Cloning and HBRL frameworks.</p>
+      </div>
+      <div class="result-card">
+        <img src="images/variance_comparison.png" alt="Posterior Variance">
+        <p class="figure-caption"><strong>Figure 5:</strong> Posterior Variance comparison between Pure LGCP, Pure RL and HBRL. Lower values indicate higher confidence in the inferred demand field.</p>
+      </div>
+    </div>
+
+    <h3 class="title is-4">Dual-Channel Transfer Ablation</h3>
+    <div class="has-text-centered">
+      <img src="images/ablation_transfer.png" alt="Transfer Channel Ablation" class="result-figure"
+           style="max-width: 85%;">
+      <p class="figure-caption">
+        <strong>Figure 6:</strong> Comparison of reward and episodes to reach Pure RL reward for all three transfer channel scenarios.
+      </p>
+    </div>
+
+    <h3 class="title is-4">Scalability and Coordination</h3>
+    <div class="results-grid">
+      <div class="result-card">
+        <img src="images/scaling_uavs.png" alt="UAV Scaling">
+        <p class="figure-caption"><strong>Figure 9:</strong> Learning performance comparison under varying numbers of UAVs. Increasing the number of agents improves overall reward but exhibits sub-linear scaling due to coordination overhead and redundant coverage</p>
+      </div>
+      <div class="result-card">
+        <img src="images/overlap_penalty.png" alt="Overlap Penalty">
+        <p class="figure-caption"><strong>Figure 10:</strong> Comparison of reward under various overlap penalty scenarios.</p>
+      </div>
+    </div>
+
+    <h3 class="title is-4">Ablation Studies</h3>
+    <div class="results-grid three-col">
+      <div class="result-card">
+        <img src="images/warmstart_ablation.png" alt="Warm-Start Duration">
+        <p class="figure-caption"><strong>Figure 7:</strong> Effect of LGCP warm-start duration on SAC training. Different warm-start lengths determine the transition point from LGCP exploration (Phase-1) to SAC optimization(Phase-2).</p>
+      </div>
+      <div class="result-card">
+        <img src="images/pathmi_horizon.png" alt="PathMI Horizon">
+        <p class="figure-caption"><strong>Figure 8:</strong> Effect of PathMI planning horizon on final reward.</p>
+      </div>
+      <div class="result-card">
+        <img src="images/temporal_decay.png" alt="Temporal Decay">
+        <p class="figure-caption"><strong>Figure 11:</strong> Impact of temporal decay on HBRL performance: (a) reward convergence and (b) belief uncertainty evolution. The dashed line denotes the warm-start transition point.</p>
+      </div>
+    </div>
+
+    <h3 class="title is-4">Weight Sensitivity</h3>
+    <div class="has-text-centered">
+      <img src="images/weight_sensitivity.png" alt="Weight Sensitivity" class="result-figure"
+           style="max-width: 95%;">
+      <p class="figure-caption">
+        <strong>Figure 12:</strong> Reward weight sensitivity analysis. (a) Effect of exploration weight $\omega_2$ on final reward with coordination weight fixed at $\omega_3 = 1.0$. The shaded region indicates the optimal range $\omega_2 \in [0.4, 0.6]$. (b) Effect of coordination weight $\omega_3$ on final reward with exploration weight fixed at $\omega_2 = 0.4$. (c) Reward heatmap over the $(\omega_2, \omega_3)$ configuration space with $\omega_1 = 5$. The star indicates the default configuration.
+      </p>
+    </div>
+
+    <h3 class="title is-4">Robustness to Experience Loss</h3>
+    <div class="results-grid">
+      <div class="result-card">
+        <img src="images/experience_loss_curves.png" alt="Experience Loss Curves">
+        <p class="figure-caption"><strong>Figure 13:</strong> Training curves for different $p_{\text{loss}}$ values.</p>
+      </div>
+      <div class="result-card">
+        <img src="images/experience_loss_bars.png" alt="Experience Loss Bars">
+        <p class="figure-caption"><strong>Figure 14:</strong> Final Reward and Convergence vs. $p_{\text{loss}}$.</p>
+      </div>
+    </div>
+
+    <h3 class="title is-4">Learned Belief Intensity</h3>
+    <div class="has-text-centered">
+      <img src="images/belief_intensity.png" alt="Belief Intensity" class="result-figure"
+           style="max-width: 95%;">
+      <p class="figure-caption">
+        <strong>Figure 17:</strong> Learned belief intensity maps at episode 100 and convergence for HBRL and Pure RL, compared against the ground truth
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content bibtex-section">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{anonymous2025hbrl,
+  title   = {Hybrid Belief--Reinforcement Learning for Sample Efficient
+             Coordinated Spatial Exploration Under Uncertainty},
+  author  = {Anonymous},
+  journal = {Transactions on Machine Learning Research (TMLR)},
+  year    = {2025},
+  note    = {Under review}
+}</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgements">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgements</h2>
+    <p>
+      Acknowledgements removed for double-blind review.
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This website template is adapted from
+            <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+            We thank <a href="https://keunhong.com/">Keunhong Park</a> for open-sourcing it.
+            Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
