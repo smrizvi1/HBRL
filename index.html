@@ -113,15 +113,25 @@
 </section>
 
 <section class="hero teaser">
-  <div class="container is-max-desktop">
+  <div class="container is-max-widescreen">
     <div class="hero-body">
-      <div class="has-text-centered">
-        <img src="images/system_overview.png" alt="System Model" class="method-diagram"
-             style="max-width: 90%;">
+      <div style="display: flex; align-items: center; gap: 2rem;">
+        <div style="flex: 0 0 60%;">
+          <img src="images/framework_overview.png" alt="HBRL Framework"
+               style="width: 100%; border-radius: 8px;">
+        </div>
+        <div style="flex: 0 0 35%; align-self: flex-start; margin-top: 1.5rem;">
+          <div class="video-card">
+            <video autoplay loop muted playsinline>
+              <source src="videos/HBRL_200.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
       </div>
-      <p class="figure-caption">
-        <strong>Figure 1:</strong> Multiple mobile agents spatial exploration over a discretized operational area with unknown demand, modeled via a spatial belief process. The illustrated scenario depicts UAVs as the instantiated agents, with further details provided in Section 4.
-      </p>
+      <div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
+        <p class="figure-caption" style="flex: 0 0 60%;">Overview of the proposed HBRL framework. Phase 1 employs LGCP-based belief inference and PathMI planning to guide information-driven exploration. Phase 2 performs policy optimization using Soft Actor-Critic (SAC), warm-started via dual-channel knowledge transfer: (i) belief state initialization and (ii) replay buffer seeding with LGCP-generated trajectories.</p>
+        <p class="figure-caption" style="flex: 0 0 35%;">Learned belief intensity at convergence (Episode 200).</p>
+      </div>
     </div>
   </div>
 </section>
@@ -158,7 +168,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" style="padding-bottom: 0;">
   <div class="container is-max-desktop">
     <hr class="section-divider">
     <div class="columns is-centered">
@@ -178,21 +188,16 @@
   </div>
 </section>
 
-<section class="section">
+<section style="padding: 0 1.5rem;">
   <div class="container is-max-desktop">
-    <hr class="section-divider">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full_width">
-        <h2 class="title is-3">Method</h2>
-      </div>
-    </div>
-
-    <div class="has-text-centered">
-      <img src="images/framework_overview.png" alt="HBRL Framework" class="method-diagram"
-           style="max-width: 95%;">
+    <hr class="section-divider" style="margin: 0 0 0.5rem 0;">
+    <h2 class="title is-3 has-text-centered" style="margin: 0 0 1rem 0; padding: 0;">Instantiation</h2>
+    <div class="has-text-centered" style="line-height: 0;">
+      <img src="images/system_overview.png" alt="System Model"
+           style="max-width: 85%; border-radius: 8px; margin: 0; padding: 0; display: block; margin-left: auto; margin-right: auto;">
     </div>
     <p class="figure-caption">
-      <strong>Figure 2:</strong> Overview of the proposed HBRL framework. Phase 1 employs LGCP-based belief inference and PathMI planning to guide information-driven exploration. Phase 2 performs policy optimization using Soft Actor-Critic (SAC), warm-started via dual-channel knowledge transfer: (i) belief state initialization and (ii) replay buffer seeding with LGCP-generated trajectories.
+      <strong>Figure 1:</strong> Multiple mobile agents spatial exploration over a discretized operational area with unknown demand, modeled via a spatial belief process. The illustrated scenario depicts UAVs as the instantiated agents, with further details provided in Section 4.
     </p>
   </div>
 </section>
